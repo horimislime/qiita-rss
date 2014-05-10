@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title><%= urlName %>のQiitaタイムライン</title>
+    <link>https://qiita.com/<%= urlName %></link>
+    <description><%= urlName %>のQiitaタイムライン</description>
+    <language>ja-jp</language>
+    <ttl>40</ttl>
+<% for (var i in entries) { %>
+    <item>
+        <title><![CDATA[<%= entries[i].title %>]]></title>
+        <description><![CDATA[<%= entries[i] %>]]></description>
+        <pubDate><%= entries[i].updateTime %></pubDate>
+        <guid><%= entries[i].id %></guid>
+        <link>test</link>
+    </item>
+<% } %>
+</channel>
+</rss>
