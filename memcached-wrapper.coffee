@@ -5,7 +5,7 @@ class Memcached
   CACHE_KEY: "latest-timeline"
 
   constructor: (host, port) ->
-    @client = new memjs.Client.create()
+    @client = new memcache.Client.create()
 
   get: (callback) ->
     @client.get @CACHE_KEY, (result) ->
