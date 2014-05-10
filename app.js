@@ -92,7 +92,7 @@ Module dependencies.
       });
     },
     start: false,
-    timeZone: "Japan/Tokyo"
+    timeZone: "Asia/Tokyo"
   }).start();
 
 }).call(this);
