@@ -27,7 +27,7 @@ app.use express.methodOverride()
 app.use app.router
 
 app.get "/rss", (req, res) ->
-  memClient.get (e, r) ->
+  memClient.get (r) ->
     console.log "result = #{JSON.stringify(r)}"
     res.render "rss", r
 
@@ -49,7 +49,7 @@ new cron.CronJob(
       feed = new Feed(process.env.USER_NAME)
       newEntries = []
 
-      memClient.get (error, result) ->
+      memClient.get (result) ->
         if !result
           json.forEach (elem) ->
             feed.addEntry(new Entry(elem))

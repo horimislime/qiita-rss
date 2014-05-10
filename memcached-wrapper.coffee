@@ -1,17 +1,15 @@
-memcache = require("memcache")
+memcache = require("memjs")
 
 class Memcached
 
   CACHE_KEY: "latest-timeline"
 
   constructor: (host, port) ->
-    @client = new memcache.Client(port, host)
-    @client.connect()
+    @client = new memjs.Client.create()
 
   get: (callback) ->
-    @client.get @CACHE_KEY, (error, result) ->
-      # console.log "debug: result = #{result}"
-      callback(error, JSON.parse(result))
+    @client.get @CACHE_KEY, (result) ->
+      callback(JSON.parse(result))
 
   set: (feed) ->
     @client.set @CACHE_KEY, JSON.stringify(feed), (e, r) ->
