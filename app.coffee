@@ -68,5 +68,4 @@ new cron.CronJob(
     return
 
   start: false
-  timeZone: "Asia/Tokyo"
 ).start()

@@ -91,8 +91,7 @@ Module dependencies.
         });
       });
     },
-    start: false,
-    timeZone: "Asia/Tokyo"
+    start: false
   }).start();
 
 }).call(this);
