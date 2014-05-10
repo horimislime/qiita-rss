@@ -23,7 +23,7 @@ Module dependencies.
 
   Entry = require("./models/entry");
 
-  memClient = new Memcached("localhost", 11211);
+  memClient = new Memcached();
 
   app = express();
 
@@ -46,22 +46,23 @@ Module dependencies.
   app.use(app.router);
 
   app.get("/rss", function(req, res) {
-    return memClient.get(function(e, r) {
+    return memClient.get(function(r) {
       console.log("result = " + (JSON.stringify(r)));
       return res.render("rss", r);
     });
   });
 
   http.createServer(app).listen(app.get("port"), function() {
-    console.log("Express server listening on port " + app.get("port"));
+    return console.log("Express server listening on port " + app.get("port"));
   });
 
-  console.log("Token: " + process.env.TOKEN);
+  console.log("Token:" + process.env.TOKEN);
 
   new cron.CronJob({
     cronTime: "* */30 * * * *",
     onTick: function() {
-      request.get({
+      console.log("cron started");
+      return request.get({
         url: "https://qiita.com/api/following?after=0&token=" + process.env.TOKEN,
         json: true
       }, function(e, r, json) {
@@ -71,7 +72,7 @@ Module dependencies.
         }
         feed = new Feed(process.env.USER_NAME);
         newEntries = [];
-        memClient.get(function(error, result) {
+        return memClient.get(function(result) {
           if (!result) {
             json.forEach(function(elem) {
               return feed.addEntry(new Entry(elem));

@@ -2,19 +2,18 @@
 (function() {
   var Memcached, memcache;
 
-  memcache = require("memcache");
+  memcache = require("memjs");
 
   Memcached = (function() {
     Memcached.prototype.CACHE_KEY = "latest-timeline";
 
-    function Memcached(host, port) {
-      this.client = new memcache.Client(port, host);
-      this.client.connect();
+    function Memcached() {
+      this.client = new memcache.Client.create();
     }
 
     Memcached.prototype.get = function(callback) {
-      return this.client.get(this.CACHE_KEY, function(error, result) {
-        return callback(error, JSON.parse(result));
+      return this.client.get(this.CACHE_KEY, function(result) {
+        return callback(JSON.parse(result));
       });
     };
 
