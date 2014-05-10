@@ -12,7 +12,7 @@ Memcached = require("./memcached-wrapper")
 Feed = require("./models/feed")
 Entry = require("./models/entry")
 
-memClient = new Memcached("localhost", 11211)
+memClient = new Memcached()
 
 # all environments
 app = express()
@@ -33,13 +33,14 @@ app.get "/rss", (req, res) ->
 
 http.createServer(app).listen app.get("port"), ->
   console.log "Express server listening on port " + app.get("port")
-  return
 
-console.log "Token: #{process.env.TOKEN}"
+console.log "Token:#{process.env.TOKEN}"
 
 new cron.CronJob(
   cronTime: "* */30 * * * *"
   onTick: ->
+    console.log "cron started"
+
     request.get
       url: "https://qiita.com/api/following?after=0&token=#{process.env.TOKEN}"
       json: true
@@ -64,8 +65,6 @@ new cron.CronJob(
         newEntries.concat(result)
         feed.setEntries(newEntries)
         memClient.set(feed)
-      return
-    return
 
   start: false
 ).start()

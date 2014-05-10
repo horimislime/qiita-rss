@@ -4,7 +4,7 @@ class Memcached
 
   CACHE_KEY: "latest-timeline"
 
-  constructor: (host, port) ->
+  constructor: ->
     @client = new memcache.Client.create()
 
   get: (callback) ->
