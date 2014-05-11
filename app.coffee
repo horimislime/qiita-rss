@@ -26,15 +26,13 @@ app.use express.urlencoded()
 app.use express.methodOverride()
 app.use app.router
 
-app.get "/rss", (req, res) ->
+app.get "/", (req, res) ->
   memClient.get (r) ->
-    console.log "result = #{JSON.stringify(r)}"
     res.render "rss", r
 
-http.createServer(app).listen app.get("port"), ->
-  console.log "Express server listening on port " + app.get("port")
+http.createServer(app).listen app.get("port")
 
-console.log "Token:#{process.env.TOKEN}"
+console.log "App started: config = #{process.env}"
 
 new cron.CronJob(
   cronTime: "* */30 * * * *"
@@ -43,15 +41,13 @@ new cron.CronJob(
       url: "https://qiita.com/api/following?after=0&token=#{process.env.TOKEN}"
       json: true
     , (e, r, json) ->
-      return console.log "error: #{r.statusCode}" if r.statusCode isnt 200
+      console.log "error: #{r.statusCode}" if r.statusCode isnt 200
 
       feed = new Feed(process.env.USER_NAME || "")
       newEntries = []
-
       memClient.get (result) ->
         if !result
-          json.forEach (elem) ->
-            feed.addEntry(new Entry(elem))
+          json.forEach (elem) -> feed.addEntry(new Entry(elem))
           memClient.set(feed)
           return
 
