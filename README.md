@@ -12,5 +12,5 @@ $ git push heroku master
 
 ## Usage
 ```
-http://yourappname.herokuapp.com/
+http://your-appname.herokuapp.com/
 ```
