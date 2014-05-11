@@ -13,6 +13,7 @@
     "memcache": "0.3.0",
     "cron": "1.0.4",
     "time": "0.10.0",
-    "memjs": "0.8.4"
+    "memjs": "0.8.4",
+    "coffee-script": "1.7.1"
   }
 }

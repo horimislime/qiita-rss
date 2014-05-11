@@ -30,7 +30,8 @@ app.get "/", (req, res) ->
   memClient.get (r) ->
     res.render "rss", r
 
-http.createServer(app).listen app.get("port")
+http.createServer(app).listen app.get("port"), ->
+  console.log "Server started: port = " + app.get("port")
 
 console.log "App started: config = #{process.env}"
 
