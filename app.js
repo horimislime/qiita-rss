@@ -59,9 +59,8 @@ Module dependencies.
   console.log("Token:" + process.env.TOKEN);
 
   new cron.CronJob({
-    cronTime: "* */30 * * * *",
+    cronTime: "*/5 * * * * *",
     onTick: function() {
-      console.log("cron started");
       return request.get({
         url: "https://qiita.com/api/following?after=0&token=" + process.env.TOKEN,
         json: true
@@ -70,7 +69,7 @@ Module dependencies.
         if (r.statusCode !== 200) {
           return console.log("error: " + r.statusCode);
         }
-        feed = new Feed(process.env.USER_NAME);
+        feed = new Feed(process.env.USER_NAME || "");
         newEntries = [];
         return memClient.get(function(result) {
           if (!result) {

@@ -13,7 +13,6 @@ class Memcached
 
   set: (feed) ->
     @client.set @CACHE_KEY, JSON.stringify(feed), (e, r) ->
-      if e
-        console.log "set error: #{e}"
+      console.log "Error: #{e}" if e
 
 module.exports = Memcached

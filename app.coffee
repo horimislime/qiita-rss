@@ -37,17 +37,15 @@ http.createServer(app).listen app.get("port"), ->
 console.log "Token:#{process.env.TOKEN}"
 
 new cron.CronJob(
-  cronTime: "* */30 * * * *"
+  cronTime: "*/5 * * * * *"
   onTick: ->
-    console.log "cron started"
-
     request.get
       url: "https://qiita.com/api/following?after=0&token=#{process.env.TOKEN}"
       json: true
     , (e, r, json) ->
       return console.log "error: #{r.statusCode}" if r.statusCode isnt 200
 
-      feed = new Feed(process.env.USER_NAME)
+      feed = new Feed(process.env.USER_NAME || "")
       newEntries = []
 
       memClient.get (result) ->
@@ -58,7 +56,7 @@ new cron.CronJob(
           return
 
         json.forEach (elem) ->
-          return  if result.entries[0].updated_at >= elem.target_content.updated_at
+          return if result.entries[0].updated_at >= elem.target_content.updated_at
 
           newEntries.push(new Entry(elem))
 
