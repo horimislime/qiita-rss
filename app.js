@@ -59,7 +59,7 @@ Module dependencies.
   console.log("Token:" + process.env.TOKEN);
 
   new cron.CronJob({
-    cronTime: "*/5 * * * * *",
+    cronTime: "* */30 * * * *",
     onTick: function() {
       return request.get({
         url: "https://qiita.com/api/following?after=0&token=" + process.env.TOKEN,

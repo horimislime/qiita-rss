@@ -4,7 +4,7 @@
 
   Memcached = require("../memcached-wrapper");
 
-  memClient = new Memcached("localhost", 11211);
+  memClient = new Memcached();
 
   module.exports = function(req, res) {
     return res.render('rss', memClient.get());

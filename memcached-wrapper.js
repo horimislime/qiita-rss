@@ -20,7 +20,7 @@
     Memcached.prototype.set = function(feed) {
       return this.client.set(this.CACHE_KEY, JSON.stringify(feed), function(e, r) {
         if (e) {
-          return console.log("set error: " + e);
+          return console.log("Error: " + e);
         }
       });
     };
