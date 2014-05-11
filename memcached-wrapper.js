@@ -12,7 +12,7 @@
     }
 
     Memcached.prototype.get = function(callback) {
-      return this.client.get(this.CACHE_KEY, function(result) {
+      return this.client.get(this.CACHE_KEY, function(error, result) {
         return callback(JSON.parse(result));
       });
     };

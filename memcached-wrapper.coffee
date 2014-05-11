@@ -8,7 +8,7 @@ class Memcached
     @client = new memcache.Client.create()
 
   get: (callback) ->
-    @client.get @CACHE_KEY, (result) ->
+    @client.get @CACHE_KEY, (error, result) ->
       callback(JSON.parse(result))
 
   set: (feed) ->
