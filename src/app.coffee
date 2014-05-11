@@ -36,7 +36,7 @@ http.createServer(app).listen app.get("port"), ->
 console.log "App started: config = #{process.env}"
 
 new cron.CronJob(
-  cronTime: "* */30 * * * *"
+  cronTime: "*/5 * * * * *"
   onTick: ->
     request.get
       url: "https://qiita.com/api/following?after=0&token=#{process.env.TOKEN}"
